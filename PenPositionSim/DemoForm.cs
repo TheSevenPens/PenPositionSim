@@ -63,8 +63,7 @@ namespace PenPositionSim
 
             this.smoother.Alpha = GetSmoothingAlpha();
 
-            var smoothed_pos_cur = Util.lerp(reported_pos_cur, smoothed_pos_prev, this.smoother.Alpha);
-
+            var smoothed_pos_cur = this.smoother.Smooth(reported_pos_cur);
 
             var reported_rect = new Rectangle(reported_pos_cur.ToPointRounded(), rect_size);
             var smoothed_rect = new Rectangle(smoothed_pos_cur.ToPointRounded(), rect_size);
@@ -122,6 +121,7 @@ namespace PenPositionSim
                 isDrawing = true;
                 reported_pos_prev = reported_pos_cur;
                 smoothed_pos_prev = reported_pos_cur;
+                this.smoother.SetOldSmoothed(reported_pos_cur);
                 return;
             }
 

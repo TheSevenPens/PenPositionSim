@@ -11,11 +11,23 @@
             this.SmoothingOld = null;
         }
 
+        public void SetOldSmoothed(PointD p)
+        {
+            this.SmoothingOld = p;
+        }
+
         public PointD Smooth(PointD value)
         {
-            PointD smoothed_new = this.SmoothingOld.HasValue ?
-                EMASmoother.lerp(this.SmoothingOld.Value, value, this.Alpha)
-                : value;
+            PointD smoothed_new;
+            if (this.SmoothingOld.HasValue)
+            {
+                smoothed_new = EMASmoother.lerp(this.SmoothingOld.Value, value, this.Alpha);
+            }
+            else
+            {
+                smoothed_new = value;
+            }
+
             this.SmoothingOld = smoothed_new;
             return smoothed_new;
         }
