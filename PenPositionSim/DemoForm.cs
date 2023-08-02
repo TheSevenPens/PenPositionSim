@@ -13,7 +13,6 @@ namespace PenPositionSim
         private PointD reported_pos_cur;
         private PointD smoothed_pos_prev;
 
-        private PointD delta_pos;
 
         private Pen pointer_pen;
         private Pen paint_pen;
@@ -60,7 +59,6 @@ namespace PenPositionSim
             double alpha = GetSmoothingAlpha();
 
             var smoothed_pos_cur = Util.lerp(reported_pos_cur, smoothed_pos_prev, alpha);
-            delta_pos = Util.subtract(reported_pos_cur, smoothed_pos_cur);
 
 
             var reported_rect = new Rectangle(reported_pos_cur.ToPointRounded(), rect_size);
