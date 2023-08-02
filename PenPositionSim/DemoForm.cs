@@ -35,11 +35,13 @@ namespace PenPositionSim
             this.report_rate_timer.Tick += Timer_Tick;
 
             this.reported_pen = new Pen(Color.Black, reported_pen_size);
-            this.reported_pen.StartCap = this.reported_pen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
+            this.reported_pen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
+            this.reported_pen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
 
             this.smoothedbrush = new SolidBrush(Color.Red);
             this.smoothed_pen = new Pen(this.smoothedbrush, smoothed_pen_size);
-            this.smoothed_pen.StartCap = this.smoothed_pen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
+            this.smoothed_pen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
+            this.smoothed_pen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
 
             this.UpdateAlphaVal();
         }
