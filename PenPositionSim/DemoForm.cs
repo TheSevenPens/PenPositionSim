@@ -17,6 +17,9 @@ namespace PenPositionSim
         private Pen reported_pen;
         private Pen smoothed_pen;
         private Brush smoothedbrush;
+        int reported_pen_size = 3;
+        int smoothed_pen_size = 5;
+        Size point_rect_size = new Size(3, 3);
 
         private System.Windows.Forms.Timer report_rate_timer;
 
@@ -31,17 +34,15 @@ namespace PenPositionSim
             this.report_rate_timer.Interval = (int)ReportRateInterval.High;
             this.report_rate_timer.Tick += Timer_Tick;
 
-            this.reported_pen = new Pen(Color.Black, 3);
+            this.reported_pen = new Pen(Color.Black, reported_pen_size);
             this.reported_pen.StartCap = this.reported_pen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
 
             this.smoothedbrush = new SolidBrush(Color.Red);
-            this.smoothed_pen = new Pen(this.smoothedbrush, 5);
+            this.smoothed_pen = new Pen(this.smoothedbrush, smoothed_pen_size);
             this.smoothed_pen.StartCap = this.smoothed_pen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
 
             this.UpdateAlphaVal();
-
         }
-
 
         private void update_reported_pos()
         {
@@ -49,19 +50,16 @@ namespace PenPositionSim
             reported_pos_cur = Util.add(new PointD(mp), -inkCanvas.Left, -inkCanvas.Top);
         }
 
-
         private void Timer_Tick(object? sender, EventArgs e)
         {
             this.update_reported_pos();
-
-            var rect_size = new Size(3, 3);
 
             this.smoother.Alpha = GetSmoothingAlpha();
 
             var smoothed_pos_cur = this.smoother.Smooth(reported_pos_cur);
 
-            var reported_rect = new Rectangle(reported_pos_cur.ToPointRounded(), rect_size);
-            var smoothed_rect = new Rectangle(smoothed_pos_cur.ToPointRounded(), rect_size);
+            var reported_rect = new Rectangle(reported_pos_cur.ToPointRounded(), point_rect_size);
+            var smoothed_rect = new Rectangle(smoothed_pos_cur.ToPointRounded(), point_rect_size);
 
             if (isDrawing)
             {
