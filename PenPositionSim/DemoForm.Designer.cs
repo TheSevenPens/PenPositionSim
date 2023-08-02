@@ -94,7 +94,6 @@
             trackBar_alpha.TabIndex = 3;
             trackBar_alpha.TickFrequency = 5;
             trackBar_alpha.TickStyle = TickStyle.TopLeft;
-            trackBar_alpha.Value = 95;
             trackBar_alpha.Scroll += trackBar_Alpha_Scroll;
             // 
             // label_alpha
@@ -184,8 +183,6 @@
             // checkBox1_show_processedposition
             // 
             checkBox1_show_processedposition.AutoSize = true;
-            checkBox1_show_processedposition.Checked = true;
-            checkBox1_show_processedposition.CheckState = CheckState.Checked;
             checkBox1_show_processedposition.Location = new Point(1278, 853);
             checkBox1_show_processedposition.Name = "checkBox1_show_processedposition";
             checkBox1_show_processedposition.Size = new Size(459, 45);
