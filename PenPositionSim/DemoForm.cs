@@ -9,40 +9,42 @@ namespace PenPositionSim
 
         private bool isDrawing;
 
+        EMASmoother smoother;
         private PointD reported_pos_prev;
         private PointD reported_pos_cur;
         private PointD smoothed_pos_prev;
 
-        private PointD delta_pos;
-
-        private Pen pointer_pen;
-        private Pen paint_pen;
+        private Pen reported_pen;
+        private Pen smoothed_pen;
+        private Brush smoothedbrush;
+        int reported_pen_size = 3;
+        int smoothed_pen_size = 5;
+        Size point_rect_size = new Size(3, 3);
 
         private System.Windows.Forms.Timer report_rate_timer;
 
-        private Brush drawbrush;
         public DemoForm()
         {
             InitializeComponent();
             InitializeDrawing();
+
+            this.smoother = new EMASmoother(0.0);
+
             this.report_rate_timer = new System.Windows.Forms.Timer();
-            this.report_rate_timer.Interval = (int) ReportRateInterval.High;
-            report_rate_timer.Tick += Timer_Tick;
+            this.report_rate_timer.Interval = (int)ReportRateInterval.High;
+            this.report_rate_timer.Tick += Timer_Tick;
 
-            reported_pos_prev = PointD.Empty;
-            smoothed_pos_prev = PointD.Empty;
+            this.reported_pen = new Pen(Color.Black, reported_pen_size);
+            this.reported_pen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
+            this.reported_pen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
 
-            pointer_pen = new Pen(Color.Black, 3);
-            pointer_pen.StartCap = pointer_pen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
-
-            this.drawbrush = new SolidBrush(Color.FromArgb(255, Color.Red));
-            paint_pen = new Pen(this.drawbrush, 5);
-            paint_pen.StartCap = paint_pen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
+            this.smoothedbrush = new SolidBrush(Color.Red);
+            this.smoothed_pen = new Pen(this.smoothedbrush, smoothed_pen_size);
+            this.smoothed_pen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
+            this.smoothed_pen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
 
             this.UpdateAlphaVal();
-
         }
-
 
         private void update_reported_pos()
         {
@@ -50,21 +52,16 @@ namespace PenPositionSim
             reported_pos_cur = Util.add(new PointD(mp), -inkCanvas.Left, -inkCanvas.Top);
         }
 
-
         private void Timer_Tick(object? sender, EventArgs e)
         {
             this.update_reported_pos();
 
-            var rect_size = new Size(3, 3);
+            this.smoother.Alpha = GetSmoothingAlpha();
 
-            double alpha = GetSmoothingAlpha();
+            var smoothed_pos_cur = this.smoother.Smooth(reported_pos_cur);
 
-            var smoothed_pos_cur = Util.lerp(reported_pos_cur, smoothed_pos_prev, alpha);
-            delta_pos = Util.subtract(reported_pos_cur, smoothed_pos_cur);
-
-
-            var reported_rect = new Rectangle(reported_pos_cur.ToPointRounded(), rect_size);
-            var smoothed_rect = new Rectangle(smoothed_pos_cur.ToPointRounded(), rect_size);
+            var reported_rect = new Rectangle(reported_pos_cur.ToPointRounded(), point_rect_size);
+            var smoothed_rect = new Rectangle(smoothed_pos_cur.ToPointRounded(), point_rect_size);
 
             if (isDrawing)
             {
@@ -75,24 +72,24 @@ namespace PenPositionSim
                     {
                         if (this.checkBox_show_reportedposition.Checked)
                         {
-                            g.DrawLine(pointer_pen, reported_pos_prev.ToPointRounded(), reported_pos_cur.ToPointRounded());
+                            g.DrawLine(reported_pen, reported_pos_prev.ToPointRounded(), reported_pos_cur.ToPointRounded());
                         }
 
                         if (this.checkBox1_show_processedposition.Checked)
                         {
-                            g.DrawLine(paint_pen, smoothed_pos_prev.ToPointRounded(), smoothed_pos_cur.ToPointRounded());
+                            g.DrawLine(smoothed_pen, smoothed_pos_prev.ToPointRounded(), smoothed_pos_cur.ToPointRounded());
                         }
                     }
                     else
                     {
                         if (this.checkBox_show_reportedposition.Checked)
                         {
-                            g.DrawEllipse(pointer_pen, reported_rect);
+                            g.DrawEllipse(reported_pen, reported_rect);
                         }
 
                         if (this.checkBox1_show_processedposition.Checked)
                         {
-                            g.DrawEllipse(paint_pen, smoothed_rect);
+                            g.DrawEllipse(smoothed_pen, smoothed_rect);
                         }
                     }
                 }
@@ -119,6 +116,7 @@ namespace PenPositionSim
                 isDrawing = true;
                 reported_pos_prev = reported_pos_cur;
                 smoothed_pos_prev = reported_pos_cur;
+                this.smoother.SetOldSmoothed(reported_pos_cur);
                 return;
             }
 
@@ -222,7 +220,7 @@ namespace PenPositionSim
         {
             if (this.report_rate_timer != null)
             {
-                this.report_rate_timer.Interval = (int) ReportRateInterval.Low;
+                this.report_rate_timer.Interval = (int)ReportRateInterval.Low;
             }
         }
 
