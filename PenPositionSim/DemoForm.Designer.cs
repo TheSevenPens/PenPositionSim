@@ -278,7 +278,7 @@
             Controls.Add(checkBox_connect_points);
             Controls.Add(inkCanvas);
             Name = "DemoForm";
-            Text = "Demo Latency, Rates, Smoothing";
+            Text = "Pen Position Simulator";
             FormClosed += Form1_FormClosed;
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)trackBar_alpha).EndInit();
