@@ -65,6 +65,8 @@
             // checkBox_connect_points
             // 
             checkBox_connect_points.AutoSize = true;
+            checkBox_connect_points.Checked = true;
+            checkBox_connect_points.CheckState = CheckState.Checked;
             checkBox_connect_points.Location = new Point(1278, 724);
             checkBox_connect_points.Name = "checkBox_connect_points";
             checkBox_connect_points.Size = new Size(258, 45);
@@ -92,6 +94,7 @@
             trackBar_alpha.TabIndex = 3;
             trackBar_alpha.TickFrequency = 5;
             trackBar_alpha.TickStyle = TickStyle.TopLeft;
+            trackBar_alpha.Value = 95;
             trackBar_alpha.Scroll += trackBar_Alpha_Scroll;
             // 
             // label_alpha
@@ -181,6 +184,8 @@
             // checkBox1_show_processedposition
             // 
             checkBox1_show_processedposition.AutoSize = true;
+            checkBox1_show_processedposition.Checked = true;
+            checkBox1_show_processedposition.CheckState = CheckState.Checked;
             checkBox1_show_processedposition.Location = new Point(1278, 853);
             checkBox1_show_processedposition.Name = "checkBox1_show_processedposition";
             checkBox1_show_processedposition.Size = new Size(459, 45);
@@ -253,7 +258,7 @@
             panel2.Size = new Size(277, 228);
             panel2.TabIndex = 19;
             // 
-            // Form1
+            // DemoForm
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -272,7 +277,7 @@
             Controls.Add(buttonClear);
             Controls.Add(checkBox_connect_points);
             Controls.Add(inkCanvas);
-            Name = "Form1";
+            Name = "DemoForm";
             Text = "Demo Latency, Rates, Smoothing";
             FormClosed += Form1_FormClosed;
             Load += Form1_Load;

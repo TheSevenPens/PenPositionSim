@@ -2,7 +2,7 @@
 {
     public class EMASmoother
     {
-        public readonly double Alpha;
+        public double Alpha;
         private PointD? SmoothingOld;
         
         public EMASmoother(double alpha)

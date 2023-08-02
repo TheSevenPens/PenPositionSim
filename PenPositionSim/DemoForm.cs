@@ -9,6 +9,7 @@ namespace PenPositionSim
 
         private bool isDrawing;
 
+        EMASmoother smoother;
         private PointD reported_pos_prev;
         private PointD reported_pos_cur;
         private PointD smoothed_pos_prev;
@@ -24,8 +25,12 @@ namespace PenPositionSim
         {
             InitializeComponent();
             InitializeDrawing();
+
+
+            this.smoother = new EMASmoother(0.0);
+
             this.report_rate_timer = new System.Windows.Forms.Timer();
-            this.report_rate_timer.Interval = (int) ReportRateInterval.High;
+            this.report_rate_timer.Interval = (int)ReportRateInterval.High;
             report_rate_timer.Tick += Timer_Tick;
 
             reported_pos_prev = PointD.Empty;
@@ -56,9 +61,9 @@ namespace PenPositionSim
 
             var rect_size = new Size(3, 3);
 
-            double alpha = GetSmoothingAlpha();
+            this.smoother.Alpha = GetSmoothingAlpha();
 
-            var smoothed_pos_cur = Util.lerp(reported_pos_cur, smoothed_pos_prev, alpha);
+            var smoothed_pos_cur = Util.lerp(reported_pos_cur, smoothed_pos_prev, this.smoother.Alpha);
 
 
             var reported_rect = new Rectangle(reported_pos_cur.ToPointRounded(), rect_size);
@@ -220,7 +225,7 @@ namespace PenPositionSim
         {
             if (this.report_rate_timer != null)
             {
-                this.report_rate_timer.Interval = (int) ReportRateInterval.Low;
+                this.report_rate_timer.Interval = (int)ReportRateInterval.Low;
             }
         }
 
