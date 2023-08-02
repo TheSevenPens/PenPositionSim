@@ -14,7 +14,6 @@ namespace PenPositionSim
         private PointD reported_pos_cur;
         private PointD smoothed_pos_prev;
 
-
         private Pen pointer_pen;
         private Pen paint_pen;
 
@@ -26,15 +25,11 @@ namespace PenPositionSim
             InitializeComponent();
             InitializeDrawing();
 
-
             this.smoother = new EMASmoother(0.0);
 
             this.report_rate_timer = new System.Windows.Forms.Timer();
             this.report_rate_timer.Interval = (int)ReportRateInterval.High;
             report_rate_timer.Tick += Timer_Tick;
-
-            reported_pos_prev = PointD.Empty;
-            smoothed_pos_prev = PointD.Empty;
 
             pointer_pen = new Pen(Color.Black, 3);
             pointer_pen.StartCap = pointer_pen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
