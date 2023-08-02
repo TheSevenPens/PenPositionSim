@@ -14,12 +14,12 @@ namespace PenPositionSim
         private PointD reported_pos_cur;
         private PointD smoothed_pos_prev;
 
-        private Pen pointer_pen;
-        private Pen paint_pen;
+        private Pen reported_pen;
+        private Pen smoothed_pen;
+        private Brush smoothedbrush;
 
         private System.Windows.Forms.Timer report_rate_timer;
 
-        private Brush drawbrush;
         public DemoForm()
         {
             InitializeComponent();
@@ -29,14 +29,14 @@ namespace PenPositionSim
 
             this.report_rate_timer = new System.Windows.Forms.Timer();
             this.report_rate_timer.Interval = (int)ReportRateInterval.High;
-            report_rate_timer.Tick += Timer_Tick;
+            this.report_rate_timer.Tick += Timer_Tick;
 
-            pointer_pen = new Pen(Color.Black, 3);
-            pointer_pen.StartCap = pointer_pen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
+            this.reported_pen = new Pen(Color.Black, 3);
+            this.reported_pen.StartCap = this.reported_pen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
 
-            this.drawbrush = new SolidBrush(Color.FromArgb(255, Color.Red));
-            paint_pen = new Pen(this.drawbrush, 5);
-            paint_pen.StartCap = paint_pen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
+            this.smoothedbrush = new SolidBrush(Color.Red);
+            this.smoothed_pen = new Pen(this.smoothedbrush, 5);
+            this.smoothed_pen.StartCap = this.smoothed_pen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
 
             this.UpdateAlphaVal();
 
@@ -72,24 +72,24 @@ namespace PenPositionSim
                     {
                         if (this.checkBox_show_reportedposition.Checked)
                         {
-                            g.DrawLine(pointer_pen, reported_pos_prev.ToPointRounded(), reported_pos_cur.ToPointRounded());
+                            g.DrawLine(reported_pen, reported_pos_prev.ToPointRounded(), reported_pos_cur.ToPointRounded());
                         }
 
                         if (this.checkBox1_show_processedposition.Checked)
                         {
-                            g.DrawLine(paint_pen, smoothed_pos_prev.ToPointRounded(), smoothed_pos_cur.ToPointRounded());
+                            g.DrawLine(smoothed_pen, smoothed_pos_prev.ToPointRounded(), smoothed_pos_cur.ToPointRounded());
                         }
                     }
                     else
                     {
                         if (this.checkBox_show_reportedposition.Checked)
                         {
-                            g.DrawEllipse(pointer_pen, reported_rect);
+                            g.DrawEllipse(reported_pen, reported_rect);
                         }
 
                         if (this.checkBox1_show_processedposition.Checked)
                         {
-                            g.DrawEllipse(paint_pen, smoothed_rect);
+                            g.DrawEllipse(smoothed_pen, smoothed_rect);
                         }
                     }
                 }
