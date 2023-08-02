@@ -29,9 +29,10 @@
             // the delay. return a fake value for until there is enough
             // in the queue
 
+            queue.Enqueue(GetMousePositionRaw(ctrl));
+
             if (queue.Count<this.posqueue_size) 
             {
-                queue.Enqueue(GetMousePositionRaw(ctrl));
                 return Point.Empty;
             }
 
@@ -39,13 +40,17 @@
             // reporting from the quque
 
             var p = queue.Dequeue();
-            queue.Enqueue(GetMousePositionRaw(ctrl));
             return p;
         }
 
         private static Point GetMousePositionRaw(Control ctrl)
         {
             return ctrl.PointToClient(Control.MousePosition);
+        }
+
+        public void ClearQueue()
+        {
+            this.queue = new Queue<Point>(this.posqueue_size);
         }
     }
 

@@ -8,6 +8,7 @@ namespace PenPositionSim
         private MouseDataSource mds = new MouseDataSource();
 
         private bool isDrawing;
+        bool initialReport = true;
 
         EMASmoother smoother;
         private PointD reported_pos_prev;
@@ -49,6 +50,17 @@ namespace PenPositionSim
         private void update_reported_pos()
         {
             var mp = this.mds.GetMousePosition(this);
+            if (mp == Point.Empty)
+            {
+                return;
+            }
+            if (initialReport)
+            {
+                reported_pos_prev = Util.add(new PointD(mp), -inkCanvas.Left, -inkCanvas.Top);
+                smoothed_pos_prev = Util.add(new PointD(mp), -inkCanvas.Left, -inkCanvas.Top);
+                this.smoother.SetOldSmoothed(Util.add(new PointD(mp), -inkCanvas.Left, -inkCanvas.Top));
+                initialReport = false;
+            }
             reported_pos_cur = Util.add(new PointD(mp), -inkCanvas.Left, -inkCanvas.Top);
         }
 
@@ -63,7 +75,7 @@ namespace PenPositionSim
             var reported_rect = new Rectangle(reported_pos_cur.ToPointRounded(), point_rect_size);
             var smoothed_rect = new Rectangle(smoothed_pos_cur.ToPointRounded(), point_rect_size);
 
-            if (isDrawing)
+            if (isDrawing && !initialReport)
             {
                 using (Graphics g = inkCanvas.CreateGraphics())
                 {
@@ -114,9 +126,8 @@ namespace PenPositionSim
             if (e.Button == MouseButtons.Left)
             {
                 isDrawing = true;
-                reported_pos_prev = reported_pos_cur;
-                smoothed_pos_prev = reported_pos_cur;
-                this.smoother.SetOldSmoothed(reported_pos_cur);
+                initialReport = true;
+                mds.ClearQueue();
                 return;
             }
 
