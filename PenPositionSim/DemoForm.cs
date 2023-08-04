@@ -10,6 +10,8 @@ namespace PenPositionSim
         private bool isDrawing;
         bool initialReport = true;
 
+        Graphics inkcanvas_gfx;
+
         EMASmoother smoother;
         private PointD reported_pos_prev;
         private PointD reported_pos_cur;
@@ -77,25 +79,21 @@ namespace PenPositionSim
 
             if (isDrawing && !initialReport)
             {
-                using (Graphics inkcanvas_gfx = inkCanvas.CreateGraphics())
+                
+                if (this.checkBox_markpositions.Checked)
                 {
-                    inkcanvas_gfx.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                    this.inkcanvas_gfx.DrawEllipse(reported_pen, reported_rect);
+                }
+                this.inkcanvas_gfx.DrawLine(reported_pen, reported_pos_prev.ToPointRounded(), reported_pos_cur.ToPointRounded());
+
+                if (this.checkBox1_show_smoothededposition.Checked)
+                {
 
                     if (this.checkBox_markpositions.Checked)
                     {
-                        inkcanvas_gfx.DrawEllipse(reported_pen, reported_rect);
+                        this.inkcanvas_gfx.DrawEllipse(smoothed_pen, smoothed_rect);
                     }
-                    inkcanvas_gfx.DrawLine(reported_pen, reported_pos_prev.ToPointRounded(), reported_pos_cur.ToPointRounded());
-
-                    if (this.checkBox1_show_smoothededposition.Checked)
-                    {
-
-                        if (this.checkBox_markpositions.Checked)
-                        {
-                            inkcanvas_gfx.DrawEllipse(smoothed_pen, smoothed_rect);
-                        }
-                        inkcanvas_gfx.DrawLine(smoothed_pen, smoothed_pos_prev.ToPointRounded(), smoothed_pos_cur.ToPointRounded());
-                    }
+                    this.inkcanvas_gfx.DrawLine(smoothed_pen, smoothed_pos_prev.ToPointRounded(), smoothed_pos_cur.ToPointRounded());
                 }
             }
 
@@ -169,6 +167,9 @@ namespace PenPositionSim
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.inkcanvas_gfx = inkCanvas.CreateGraphics();
+            this.inkcanvas_gfx.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
             this.SetupPenCursorForCanvas();
             this.report_rate_timer.Start();
         }
@@ -216,7 +217,10 @@ namespace PenPositionSim
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-
+            if (this.inkcanvas_gfx !=null)
+            {
+                this.inkcanvas_gfx.Dispose();
+            }
         }
 
         private void radioButton_ReportRateLow_CheckedChanged(object sender, EventArgs e)
