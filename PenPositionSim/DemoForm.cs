@@ -20,7 +20,7 @@ namespace PenPositionSim
         private Brush smoothedbrush;
         int reported_pen_size = 3;
         int smoothed_pen_size = 5;
-        Size point_rect_size = new Size(3, 3);
+        Size point_rect_size = new Size(7, 7);
 
         private System.Windows.Forms.Timer report_rate_timer;
 
@@ -72,37 +72,23 @@ namespace PenPositionSim
 
             var smoothed_pos_cur = this.smoother.Smooth(reported_pos_cur);
 
-            var reported_rect = new Rectangle(reported_pos_cur.ToPointRounded(), point_rect_size);
-            var smoothed_rect = new Rectangle(smoothed_pos_cur.ToPointRounded(), point_rect_size);
+            var reported_rect = new Rectangle(reported_pos_cur.Add(-3,-3).ToPointRounded(), point_rect_size);
+            var smoothed_rect = new Rectangle(smoothed_pos_cur.Add(-3, -3).ToPointRounded(), point_rect_size);
 
             if (isDrawing && !initialReport)
             {
                 using (Graphics g = inkCanvas.CreateGraphics())
                 {
                     g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                    if (this.checkBox_connect_points.Checked)
-                    {
-                        if (this.checkBox_show_reportedposition.Checked)
-                        {
-                            g.DrawLine(reported_pen, reported_pos_prev.ToPointRounded(), reported_pos_cur.ToPointRounded());
-                        }
 
-                        if (this.checkBox1_show_processedposition.Checked)
-                        {
-                            g.DrawLine(smoothed_pen, smoothed_pos_prev.ToPointRounded(), smoothed_pos_cur.ToPointRounded());
-                        }
-                    }
-                    else
-                    {
-                        if (this.checkBox_show_reportedposition.Checked)
-                        {
-                            g.DrawEllipse(reported_pen, reported_rect);
-                        }
+                    g.DrawEllipse(reported_pen, reported_rect);
+                    g.DrawLine(reported_pen, reported_pos_prev.ToPointRounded(), reported_pos_cur.ToPointRounded());
 
-                        if (this.checkBox1_show_processedposition.Checked)
-                        {
-                            g.DrawEllipse(smoothed_pen, smoothed_rect);
-                        }
+                    if (this.checkBox1_show_processedposition.Checked)
+                    {
+
+                        g.DrawEllipse(smoothed_pen, smoothed_rect);
+                        g.DrawLine(smoothed_pen, smoothed_pos_prev.ToPointRounded(), smoothed_pos_cur.ToPointRounded());
                     }
                 }
             }

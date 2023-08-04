@@ -34,6 +34,11 @@
             var p = new Point((int)rx, (int)ry);
             return p;
         }
+
+        public PointD Add(int dx, int dy)
+        {
+            return new PointD(this.X + dx, this.Y + dy);
+        }
     }
 
 }
