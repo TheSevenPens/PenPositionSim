@@ -53,18 +53,21 @@ namespace PenPositionSim
         private void update_reported_pos()
         {
             var mp = this.mds.GetMousePosition(this);
+
             if (mp == Point.Empty)
             {
                 return;
             }
+
+            var mpd = new PointD(mp);
             if (initialReport)
             {
-                reported_pos_prev = (new PointD(mp)).Add(-inkCanvas.Left, -inkCanvas.Top);
-                smoothed_pos_prev = (new PointD(mp)).Add(-inkCanvas.Left, -inkCanvas.Top);
-                this.smoother.SetOldSmoothed((new PointD(mp)).Add( -inkCanvas.Left, -inkCanvas.Top));
+                reported_pos_prev = mpd.Add(-inkCanvas.Left, -inkCanvas.Top);
+                smoothed_pos_prev = mpd.Add(-inkCanvas.Left, -inkCanvas.Top);
+                this.smoother.SetOldSmoothed(mpd.Add( -inkCanvas.Left, -inkCanvas.Top));
                 initialReport = false;
             }
-            reported_pos_cur = (new PointD(mp)).Add(-inkCanvas.Left, -inkCanvas.Top);
+            reported_pos_cur = mpd.Add(-inkCanvas.Left, -inkCanvas.Top);
         }
 
         private void Timer_Tick(object? sender, EventArgs e)
