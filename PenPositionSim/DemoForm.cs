@@ -29,7 +29,8 @@ namespace PenPositionSim
         public DemoForm()
         {
             InitializeComponent();
-            InitializeDrawing();
+
+            isDrawing = false;
 
             this.smoother = new EMASmoother(0.0);
 
@@ -106,11 +107,6 @@ namespace PenPositionSim
             return this.trackBar_alpha.Value / (double)100;
         }
 
-        private void InitializeDrawing()
-        {
-            isDrawing = false;
-        }
-
         private void inkCanvas_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -153,7 +149,7 @@ namespace PenPositionSim
 
         private void trackBar_Alpha_Scroll(object sender, EventArgs e)
         {
-            UpdateFormAlphaValue();
+            this.UpdateFormAlphaValue();
         }
 
         private void UpdateFormAlphaValue()
@@ -244,9 +240,7 @@ namespace PenPositionSim
             {
                 this.report_rate_timer.Interval = (int)ReportRateInterval.High;
             }
-
         }
-
 
         private void radioButton_LowLatency_CheckedChanged(object sender, EventArgs e)
         {
@@ -259,5 +253,4 @@ namespace PenPositionSim
 
         }
     }
-
 }
