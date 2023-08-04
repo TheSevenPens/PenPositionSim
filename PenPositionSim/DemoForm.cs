@@ -75,8 +75,8 @@ namespace PenPositionSim
 
             var smoothed_pos_cur = this.smoother.Smooth(reported_pos_cur);
 
-            var reported_rect = new Rectangle(reported_pos_cur.Add(-3, -3).ToPointRounded(), point_rect_size);
-            var smoothed_rect = new Rectangle(smoothed_pos_cur.Add(-3, -3).ToPointRounded(), point_rect_size);
+            var reported_rect = new Rectangle(reported_pos_cur.Add(-3, -3).ToPoint(), point_rect_size);
+            var smoothed_rect = new Rectangle(smoothed_pos_cur.Add(-3, -3).ToPoint(), point_rect_size);
 
             if (isDrawing && !initialReport)
             {
@@ -87,7 +87,7 @@ namespace PenPositionSim
                     {
                         this.inkcanvas_gfx.DrawEllipse(reported_pen, reported_rect);
                     }
-                    this.inkcanvas_gfx.DrawLine(reported_pen, reported_pos_prev.ToPointRounded(), reported_pos_cur.ToPointRounded());
+                    this.inkcanvas_gfx.DrawLine(reported_pen, reported_pos_prev.ToPoint(), reported_pos_cur.ToPoint());
                 }
 
                 if (this.checkBox1_show_smoothededposition.Checked)
@@ -97,7 +97,7 @@ namespace PenPositionSim
                     {
                         this.inkcanvas_gfx.DrawEllipse(smoothed_pen, smoothed_rect);
                     }
-                    this.inkcanvas_gfx.DrawLine(smoothed_pen, smoothed_pos_prev.ToPointRounded(), smoothed_pos_cur.ToPointRounded());
+                    this.inkcanvas_gfx.DrawLine(smoothed_pen, smoothed_pos_prev.ToPoint(), smoothed_pos_cur.ToPoint());
                 }
             }
 

@@ -27,7 +27,7 @@
             this.Y = point.Y;
         }
 
-        public Point ToPointRounded()
+        public Point ToPoint()
         {
             double rx = System.Math.Round(this.X);
             double ry = System.Math.Round(this.Y);
