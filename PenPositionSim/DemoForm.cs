@@ -79,7 +79,7 @@ namespace PenPositionSim
 
             if (isDrawing && !initialReport)
             {
-                
+
                 if (this.checkBox_markpositions.Checked)
                 {
                     this.inkcanvas_gfx.DrawEllipse(reported_pen, reported_rect);
@@ -209,15 +209,16 @@ namespace PenPositionSim
                 }
 
 
-                PictureBox pb = new PictureBox() { Image = bitmap };
-                var frm = this.inkCanvas;
-                frm.Cursor = new Cursor(((Bitmap)pb.Image).GetHicon());
+                using (var pb = new PictureBox() { Image = bitmap })
+                {
+                    this.inkCanvas.Cursor = new Cursor(((Bitmap)pb.Image).GetHicon());
+                }
             }
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (this.inkcanvas_gfx !=null)
+            if (this.inkcanvas_gfx != null)
             {
                 this.inkcanvas_gfx.Dispose();
             }

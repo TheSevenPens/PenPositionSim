@@ -64,11 +64,11 @@
             // 
             // buttonClear
             // 
-            buttonClear.Location = new Point(1664, 922);
+            buttonClear.Location = new Point(1423, 922);
             buttonClear.Name = "buttonClear";
-            buttonClear.Size = new Size(212, 58);
+            buttonClear.Size = new Size(453, 58);
             buttonClear.TabIndex = 2;
-            buttonClear.Text = "Erase canvas";
+            buttonClear.Text = "Erase canvas (right-click)";
             buttonClear.UseVisualStyleBackColor = true;
             buttonClear.Click += buttonClear_Click;
             // 
@@ -168,11 +168,11 @@
             radioButton_ReportRateLow.UseVisualStyleBackColor = true;
             radioButton_ReportRateLow.CheckedChanged += radioButton_ReportRateLow_CheckedChanged;
             // 
-            // checkBox1_show_processedposition
+            // checkBox1_show_smoothededposition
             // 
             checkBox1_show_smoothededposition.AutoSize = true;
             checkBox1_show_smoothededposition.Location = new Point(1278, 715);
-            checkBox1_show_smoothededposition.Name = "checkBox1_show_processedposition";
+            checkBox1_show_smoothededposition.Name = "checkBox1_show_smoothededposition";
             checkBox1_show_smoothededposition.Size = new Size(459, 45);
             checkBox1_show_smoothededposition.TabIndex = 13;
             checkBox1_show_smoothededposition.Text = "Show smoothed position (red)";
