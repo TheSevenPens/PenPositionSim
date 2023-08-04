@@ -77,24 +77,24 @@ namespace PenPositionSim
 
             if (isDrawing && !initialReport)
             {
-                using (Graphics g = inkCanvas.CreateGraphics())
+                using (Graphics inkcanvas_gfx = inkCanvas.CreateGraphics())
                 {
-                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                    inkcanvas_gfx.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
                     if (this.checkBox_markpositions.Checked)
                     {
-                        g.DrawEllipse(reported_pen, reported_rect);
+                        inkcanvas_gfx.DrawEllipse(reported_pen, reported_rect);
                     }
-                    g.DrawLine(reported_pen, reported_pos_prev.ToPointRounded(), reported_pos_cur.ToPointRounded());
+                    inkcanvas_gfx.DrawLine(reported_pen, reported_pos_prev.ToPointRounded(), reported_pos_cur.ToPointRounded());
 
                     if (this.checkBox1_show_smoothededposition.Checked)
                     {
 
                         if (this.checkBox_markpositions.Checked)
                         {
-                            g.DrawEllipse(smoothed_pen, smoothed_rect);
+                            inkcanvas_gfx.DrawEllipse(smoothed_pen, smoothed_rect);
                         }
-                        g.DrawLine(smoothed_pen, smoothed_pos_prev.ToPointRounded(), smoothed_pos_cur.ToPointRounded());
+                        inkcanvas_gfx.DrawLine(smoothed_pen, smoothed_pos_prev.ToPointRounded(), smoothed_pos_cur.ToPointRounded());
                     }
                 }
             }
