@@ -46,7 +46,7 @@ namespace PenPositionSim
             this.smoothed_pen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
             this.smoothed_pen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
 
-            this.UpdateAlphaVal();
+            this.UpdateFormAlphaValue();
         }
 
         private void update_reported_pos()
@@ -153,10 +153,10 @@ namespace PenPositionSim
 
         private void trackBar_Alpha_Scroll(object sender, EventArgs e)
         {
-            UpdateAlphaVal();
+            UpdateFormAlphaValue();
         }
 
-        private void UpdateAlphaVal()
+        private void UpdateFormAlphaValue()
         {
             this.label_alphavalue.Text = (this.trackBar_alpha.Value / (double)100).ToString();
         }
