@@ -21,7 +21,7 @@ namespace PenPositionSim
         private Pen smoothed_pen;
         private Brush smoothedbrush;
         int reported_pen_size = 3;
-        int smoothed_pen_size = 5;
+        int smoothed_pen_size = 3;
         Size point_rect_size = new Size(7, 7);
 
         private System.Windows.Forms.Timer report_rate_timer;
@@ -29,7 +29,8 @@ namespace PenPositionSim
         public DemoForm()
         {
             InitializeComponent();
-            InitializeDrawing();
+
+            isDrawing = false;
 
             this.smoother = new EMASmoother(0.0);
 
@@ -52,18 +53,21 @@ namespace PenPositionSim
         private void update_reported_pos()
         {
             var mp = this.mds.GetMousePosition(this);
+
             if (mp == Point.Empty)
             {
                 return;
             }
+
+            var mpd = new PointD(mp);
             if (initialReport)
             {
-                reported_pos_prev = Util.add(new PointD(mp), -inkCanvas.Left, -inkCanvas.Top);
-                smoothed_pos_prev = Util.add(new PointD(mp), -inkCanvas.Left, -inkCanvas.Top);
-                this.smoother.SetOldSmoothed(Util.add(new PointD(mp), -inkCanvas.Left, -inkCanvas.Top));
+                reported_pos_prev = mpd.Add(-inkCanvas.Left, -inkCanvas.Top);
+                smoothed_pos_prev = mpd.Add(-inkCanvas.Left, -inkCanvas.Top);
+                this.smoother.SetOldSmoothed(mpd.Add( -inkCanvas.Left, -inkCanvas.Top));
                 initialReport = false;
             }
-            reported_pos_cur = Util.add(new PointD(mp), -inkCanvas.Left, -inkCanvas.Top);
+            reported_pos_cur = mpd.Add(-inkCanvas.Left, -inkCanvas.Top);
         }
 
         private void Timer_Tick(object? sender, EventArgs e)
@@ -74,17 +78,20 @@ namespace PenPositionSim
 
             var smoothed_pos_cur = this.smoother.Smooth(reported_pos_cur);
 
-            var reported_rect = new Rectangle(reported_pos_cur.Add(-3, -3).ToPointRounded(), point_rect_size);
-            var smoothed_rect = new Rectangle(smoothed_pos_cur.Add(-3, -3).ToPointRounded(), point_rect_size);
+            var reported_rect = new Rectangle(reported_pos_cur.Add(-3, -3).ToPoint(), point_rect_size);
+            var smoothed_rect = new Rectangle(smoothed_pos_cur.Add(-3, -3).ToPoint(), point_rect_size);
 
             if (isDrawing && !initialReport)
             {
 
-                if (this.checkBox_markpositions.Checked)
+                if (this.checkBox_show_reportedposition.Checked)
                 {
-                    this.inkcanvas_gfx.DrawEllipse(reported_pen, reported_rect);
+                    if (this.checkBox_markpositions.Checked)
+                    {
+                        this.inkcanvas_gfx.DrawEllipse(reported_pen, reported_rect);
+                    }
+                    this.inkcanvas_gfx.DrawLine(reported_pen, reported_pos_prev.ToPoint(), reported_pos_cur.ToPoint());
                 }
-                this.inkcanvas_gfx.DrawLine(reported_pen, reported_pos_prev.ToPointRounded(), reported_pos_cur.ToPointRounded());
 
                 if (this.checkBox1_show_smoothededposition.Checked)
                 {
@@ -93,7 +100,7 @@ namespace PenPositionSim
                     {
                         this.inkcanvas_gfx.DrawEllipse(smoothed_pen, smoothed_rect);
                     }
-                    this.inkcanvas_gfx.DrawLine(smoothed_pen, smoothed_pos_prev.ToPointRounded(), smoothed_pos_cur.ToPointRounded());
+                    this.inkcanvas_gfx.DrawLine(smoothed_pen, smoothed_pos_prev.ToPoint(), smoothed_pos_cur.ToPoint());
                 }
             }
 
@@ -104,11 +111,6 @@ namespace PenPositionSim
         private double GetSmoothingAlpha()
         {
             return this.trackBar_alpha.Value / (double)100;
-        }
-
-        private void InitializeDrawing()
-        {
-            isDrawing = false;
         }
 
         private void inkCanvas_MouseDown(object sender, MouseEventArgs e)
@@ -153,7 +155,7 @@ namespace PenPositionSim
 
         private void trackBar_Alpha_Scroll(object sender, EventArgs e)
         {
-            UpdateFormAlphaValue();
+            this.UpdateFormAlphaValue();
         }
 
         private void UpdateFormAlphaValue()
@@ -244,9 +246,7 @@ namespace PenPositionSim
             {
                 this.report_rate_timer.Interval = (int)ReportRateInterval.High;
             }
-
         }
-
 
         private void radioButton_LowLatency_CheckedChanged(object sender, EventArgs e)
         {
@@ -259,5 +259,4 @@ namespace PenPositionSim
 
         }
     }
-
 }
