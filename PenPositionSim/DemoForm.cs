@@ -10,6 +10,8 @@ namespace PenPositionSim
         private bool isDrawing;
         bool initialReport = true;
 
+        Graphics inkcanvas_gfx;
+
         EMASmoother smoother;
         private PointD reported_pos_prev;
         private PointD reported_pos_cur;
@@ -20,7 +22,7 @@ namespace PenPositionSim
         private Brush smoothedbrush;
         int reported_pen_size = 3;
         int smoothed_pen_size = 5;
-        Size point_rect_size = new Size(3, 3);
+        Size point_rect_size = new Size(7, 7);
 
         private System.Windows.Forms.Timer report_rate_timer;
 
@@ -44,7 +46,7 @@ namespace PenPositionSim
             this.smoothed_pen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
             this.smoothed_pen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
 
-            this.UpdateAlphaVal();
+            this.UpdateFormAlphaValue();
         }
 
         private void update_reported_pos()
@@ -72,38 +74,26 @@ namespace PenPositionSim
 
             var smoothed_pos_cur = this.smoother.Smooth(reported_pos_cur);
 
-            var reported_rect = new Rectangle(reported_pos_cur.ToPointRounded(), point_rect_size);
-            var smoothed_rect = new Rectangle(smoothed_pos_cur.ToPointRounded(), point_rect_size);
+            var reported_rect = new Rectangle(reported_pos_cur.Add(-3, -3).ToPointRounded(), point_rect_size);
+            var smoothed_rect = new Rectangle(smoothed_pos_cur.Add(-3, -3).ToPointRounded(), point_rect_size);
 
             if (isDrawing && !initialReport)
             {
-                using (Graphics g = inkCanvas.CreateGraphics())
+
+                if (this.checkBox_markpositions.Checked)
                 {
-                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                    if (this.checkBox_connect_points.Checked)
-                    {
-                        if (this.checkBox_show_reportedposition.Checked)
-                        {
-                            g.DrawLine(reported_pen, reported_pos_prev.ToPointRounded(), reported_pos_cur.ToPointRounded());
-                        }
+                    this.inkcanvas_gfx.DrawEllipse(reported_pen, reported_rect);
+                }
+                this.inkcanvas_gfx.DrawLine(reported_pen, reported_pos_prev.ToPointRounded(), reported_pos_cur.ToPointRounded());
 
-                        if (this.checkBox1_show_processedposition.Checked)
-                        {
-                            g.DrawLine(smoothed_pen, smoothed_pos_prev.ToPointRounded(), smoothed_pos_cur.ToPointRounded());
-                        }
-                    }
-                    else
-                    {
-                        if (this.checkBox_show_reportedposition.Checked)
-                        {
-                            g.DrawEllipse(reported_pen, reported_rect);
-                        }
+                if (this.checkBox1_show_smoothededposition.Checked)
+                {
 
-                        if (this.checkBox1_show_processedposition.Checked)
-                        {
-                            g.DrawEllipse(smoothed_pen, smoothed_rect);
-                        }
+                    if (this.checkBox_markpositions.Checked)
+                    {
+                        this.inkcanvas_gfx.DrawEllipse(smoothed_pen, smoothed_rect);
                     }
+                    this.inkcanvas_gfx.DrawLine(smoothed_pen, smoothed_pos_prev.ToPointRounded(), smoothed_pos_cur.ToPointRounded());
                 }
             }
 
@@ -154,38 +144,61 @@ namespace PenPositionSim
 
         private void EraseCanvas()
         {
-            using (Graphics g = inkCanvas.CreateGraphics())
+            using (var b = new SolidBrush(System.Drawing.Color.White))
             {
-                using (var b = new SolidBrush(System.Drawing.Color.White))
-                {
-                    g.FillRectangle(b, 0, 0, inkCanvas.Width, inkCanvas.Height);
-
-                }
+                this.inkcanvas_gfx.FillRectangle(b, 0, 0, inkCanvas.Width, inkCanvas.Height);
 
             }
         }
 
         private void trackBar_Alpha_Scroll(object sender, EventArgs e)
         {
-            UpdateAlphaVal();
+            UpdateFormAlphaValue();
         }
 
-        private void UpdateAlphaVal()
+        private void UpdateFormAlphaValue()
         {
             this.label_alphavalue.Text = (this.trackBar_alpha.Value / (double)100).ToString();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.inkcanvas_gfx = inkCanvas.CreateGraphics();
+            this.inkcanvas_gfx.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
             this.SetupPenCursorForCanvas();
             this.report_rate_timer.Start();
+        }
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.report_rate_timer.Stop();
+            if (this.inkcanvas_gfx != null)
+            {
+                this.inkcanvas_gfx.Dispose();
+            }
         }
 
         private void SetupPenCursorForCanvas()
         {
-            int width = 256;
-            int height = 256;
-            using (Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb))
+            int cursor_width = 256;
+            int cursor_height = 256;
+
+            int centerx = cursor_width / 2 + 10;
+            int centery = cursor_height / 2 - 10;
+            int delta = 10;
+
+            var center = new Point(centerx, centery);
+            var p1 = new Point(cursor_width - 1 - delta, 0);
+            var p2 = new Point(cursor_width - 1, 0 + delta);
+
+            var trianglePoints = new Point[]
+            {
+                center,   // Top point
+                p1,   // Bottom-left point
+                p2,  // Bottom-right point
+            };
+
+            using (Bitmap bitmap = new Bitmap(cursor_width, cursor_height, PixelFormat.Format32bppArgb))
             {
                 using (Graphics graphics = Graphics.FromImage(bitmap))
                 {
@@ -194,38 +207,20 @@ namespace PenPositionSim
                     using (Pen pen = new Pen(Color.Blue, 4))
                     using (Brush brush = new SolidBrush(Color.Yellow))
                     {
-                        int centerx = width / 2 + 10;
-                        int centery = height / 2 - 10;
-                        int delta = 10;
-
-                        var center = new Point(centerx, centery);
-                        var p1 = new Point(width - 1 - delta, 0);
-                        var p2 = new Point(width - 1, 0 + delta);
-
-
-                        var trianglePoints = new Point[]
-                        {
-                            center,   // Top point
-                            p1,   // Bottom-left point
-                            p2,  // Bottom-right point
-                        };
-
                         graphics.FillPolygon(brush, trianglePoints);
                         graphics.DrawPolygon(pen, trianglePoints);
                     }
                 }
 
 
-                PictureBox pb = new PictureBox() { Image = bitmap };
-                var frm = this.inkCanvas;
-                frm.Cursor = new Cursor(((Bitmap)pb.Image).GetHicon());
+                using (var pb = new PictureBox() { Image = bitmap })
+                {
+                    var cursor = new Cursor(((Bitmap)pb.Image).GetHicon());
+                    this.inkCanvas.Cursor = cursor;
+                }
             }
         }
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
-        {
-
-        }
 
         private void radioButton_ReportRateLow_CheckedChanged(object sender, EventArgs e)
         {
