@@ -81,13 +81,19 @@ namespace PenPositionSim
                 {
                     g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
-                    g.DrawEllipse(reported_pen, reported_rect);
+                    if (this.checkBox_markpositions.Checked)
+                    {
+                        g.DrawEllipse(reported_pen, reported_rect);
+                    }
                     g.DrawLine(reported_pen, reported_pos_prev.ToPointRounded(), reported_pos_cur.ToPointRounded());
 
                     if (this.checkBox1_show_processedposition.Checked)
                     {
 
-                        g.DrawEllipse(smoothed_pen, smoothed_rect);
+                        if (this.checkBox_markpositions.Checked)
+                        {
+                            g.DrawEllipse(smoothed_pen, smoothed_rect);
+                        }
                         g.DrawLine(smoothed_pen, smoothed_pos_prev.ToPointRounded(), smoothed_pos_cur.ToPointRounded());
                     }
                 }

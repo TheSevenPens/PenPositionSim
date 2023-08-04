@@ -46,6 +46,7 @@
             radioButton_LowLatency = new RadioButton();
             panel1 = new Panel();
             panel2 = new Panel();
+            checkBox_markpositions = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)trackBar_alpha).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -74,7 +75,7 @@
             // trackBar_alpha
             // 
             trackBar_alpha.AutoSize = false;
-            trackBar_alpha.Location = new Point(1384, 470);
+            trackBar_alpha.Location = new Point(1384, 416);
             trackBar_alpha.Maximum = 100;
             trackBar_alpha.Name = "trackBar_alpha";
             trackBar_alpha.Size = new Size(381, 61);
@@ -87,7 +88,7 @@
             // 
             label_alpha.AutoSize = true;
             label_alpha.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label_alpha.Location = new Point(1267, 479);
+            label_alpha.Location = new Point(1267, 425);
             label_alpha.Name = "label_alpha";
             label_alpha.Size = new Size(101, 41);
             label_alpha.TabIndex = 4;
@@ -96,7 +97,7 @@
             // label_alphavalue
             // 
             label_alphavalue.AutoSize = true;
-            label_alphavalue.Location = new Point(1794, 479);
+            label_alphavalue.Location = new Point(1794, 425);
             label_alphavalue.Name = "label_alphavalue";
             label_alphavalue.Size = new Size(78, 41);
             label_alphavalue.TabIndex = 5;
@@ -106,7 +107,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 11.1F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(1261, 417);
+            label1.Location = new Point(1261, 363);
             label1.Name = "label1";
             label1.Size = new Size(435, 50);
             label1.TabIndex = 6;
@@ -116,7 +117,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 11.1F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(1263, 668);
+            label2.Location = new Point(1263, 530);
             label2.Name = "label2";
             label2.Size = new Size(185, 50);
             label2.TabIndex = 7;
@@ -170,7 +171,7 @@
             // checkBox1_show_processedposition
             // 
             checkBox1_show_processedposition.AutoSize = true;
-            checkBox1_show_processedposition.Location = new Point(1278, 853);
+            checkBox1_show_processedposition.Location = new Point(1278, 715);
             checkBox1_show_processedposition.Name = "checkBox1_show_processedposition";
             checkBox1_show_processedposition.Size = new Size(459, 45);
             checkBox1_show_processedposition.TabIndex = 13;
@@ -182,7 +183,7 @@
             checkBox_show_reportedposition.AutoSize = true;
             checkBox_show_reportedposition.Checked = true;
             checkBox_show_reportedposition.CheckState = CheckState.Checked;
-            checkBox_show_reportedposition.Location = new Point(1278, 790);
+            checkBox_show_reportedposition.Location = new Point(1278, 652);
             checkBox_show_reportedposition.Name = "checkBox_show_reportedposition";
             checkBox_show_reportedposition.Size = new Size(464, 45);
             checkBox_show_reportedposition.TabIndex = 14;
@@ -242,11 +243,24 @@
             panel2.Size = new Size(277, 228);
             panel2.TabIndex = 19;
             // 
+            // checkBox_markpositions
+            // 
+            checkBox_markpositions.AutoSize = true;
+            checkBox_markpositions.Checked = true;
+            checkBox_markpositions.CheckState = CheckState.Checked;
+            checkBox_markpositions.Location = new Point(1278, 592);
+            checkBox_markpositions.Name = "checkBox_markpositions";
+            checkBox_markpositions.Size = new Size(252, 45);
+            checkBox_markpositions.TabIndex = 20;
+            checkBox_markpositions.Text = "Mark positions";
+            checkBox_markpositions.UseVisualStyleBackColor = true;
+            // 
             // DemoForm
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1888, 992);
+            Controls.Add(checkBox_markpositions);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(label1);
@@ -293,5 +307,6 @@
         private RadioButton radioButton_highlatency;
         private Panel panel1;
         private Panel panel2;
+        private CheckBox checkBox_markpositions;
     }
 }
