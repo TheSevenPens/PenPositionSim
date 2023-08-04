@@ -81,11 +81,14 @@ namespace PenPositionSim
             if (isDrawing && !initialReport)
             {
 
-                if (this.checkBox_markpositions.Checked)
+                if (this.checkBox_show_reportedposition.Checked)
                 {
-                    this.inkcanvas_gfx.DrawEllipse(reported_pen, reported_rect);
+                    if (this.checkBox_markpositions.Checked)
+                    {
+                        this.inkcanvas_gfx.DrawEllipse(reported_pen, reported_rect);
+                    }
+                    this.inkcanvas_gfx.DrawLine(reported_pen, reported_pos_prev.ToPointRounded(), reported_pos_cur.ToPointRounded());
                 }
-                this.inkcanvas_gfx.DrawLine(reported_pen, reported_pos_prev.ToPointRounded(), reported_pos_cur.ToPointRounded());
 
                 if (this.checkBox1_show_smoothededposition.Checked)
                 {
