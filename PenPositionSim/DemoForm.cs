@@ -21,7 +21,7 @@ namespace PenPositionSim
         private Pen smoothed_pen;
         private Brush smoothedbrush;
         int reported_pen_size = 3;
-        int smoothed_pen_size = 5;
+        int smoothed_pen_size = 3;
         Size point_rect_size = new Size(7, 7);
 
         private System.Windows.Forms.Timer report_rate_timer;
