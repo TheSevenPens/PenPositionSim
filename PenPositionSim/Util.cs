@@ -28,30 +28,5 @@
         {
             return new PointD(p.X + x, p.Y + y);
         }
-
-
-        public static Point subtract(Point p, int x, int y)
-        {
-            return new Point(p.X - x, p.Y - y);
-        }
-        public static PointD subtract(PointD p, int x, int y)
-        {
-            return new PointD(p.X - x, p.Y - y);
-        }
-
-        public static PointD subtract(PointD p, double x, double y)
-        {
-            return new PointD(p.X - x, p.Y - y);
-        }
-        public static PointD subtract(PointD p1, PointD p2)
-        {
-            return subtract(p1, p2.X, p2.Y);
-        }
-        public static string pointd_to_string(PointD p)
-        {
-            return string.Format("{0}x{1}", p.X, p.Y);
-        }
-
     }
-
 }
