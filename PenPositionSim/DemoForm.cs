@@ -59,12 +59,12 @@ namespace PenPositionSim
             }
             if (initialReport)
             {
-                reported_pos_prev = Util.add(new PointD(mp), -inkCanvas.Left, -inkCanvas.Top);
-                smoothed_pos_prev = Util.add(new PointD(mp), -inkCanvas.Left, -inkCanvas.Top);
-                this.smoother.SetOldSmoothed(Util.add(new PointD(mp), -inkCanvas.Left, -inkCanvas.Top));
+                reported_pos_prev = (new PointD(mp)).Add(-inkCanvas.Left, -inkCanvas.Top);
+                smoothed_pos_prev = (new PointD(mp)).Add(-inkCanvas.Left, -inkCanvas.Top);
+                this.smoother.SetOldSmoothed((new PointD(mp)).Add( -inkCanvas.Left, -inkCanvas.Top));
                 initialReport = false;
             }
-            reported_pos_cur = Util.add(new PointD(mp), -inkCanvas.Left, -inkCanvas.Top);
+            reported_pos_cur = (new PointD(mp)).Add(-inkCanvas.Left, -inkCanvas.Top);
         }
 
         private void Timer_Tick(object? sender, EventArgs e)

@@ -23,10 +23,5 @@
             double y = lerp(a.Y, b.Y, alpha);
             return new PointD(x, y);
         }
-
-        public static PointD add(PointD p, int x, int y)
-        {
-            return new PointD(p.X + x, p.Y + y);
-        }
     }
 }
