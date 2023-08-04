@@ -87,7 +87,7 @@ namespace PenPositionSim
                     }
                     g.DrawLine(reported_pen, reported_pos_prev.ToPointRounded(), reported_pos_cur.ToPointRounded());
 
-                    if (this.checkBox1_show_processedposition.Checked)
+                    if (this.checkBox1_show_smoothededposition.Checked)
                     {
 
                         if (this.checkBox_markpositions.Checked)

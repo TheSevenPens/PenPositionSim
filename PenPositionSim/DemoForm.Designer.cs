@@ -39,7 +39,7 @@
             radioButton1 = new RadioButton();
             radioButton_ReportRateHigh = new RadioButton();
             radioButton_ReportRateLow = new RadioButton();
-            checkBox1_show_processedposition = new CheckBox();
+            checkBox1_show_smoothededposition = new CheckBox();
             checkBox_show_reportedposition = new CheckBox();
             label4 = new Label();
             radioButton_highlatency = new RadioButton();
@@ -170,13 +170,13 @@
             // 
             // checkBox1_show_processedposition
             // 
-            checkBox1_show_processedposition.AutoSize = true;
-            checkBox1_show_processedposition.Location = new Point(1278, 715);
-            checkBox1_show_processedposition.Name = "checkBox1_show_processedposition";
-            checkBox1_show_processedposition.Size = new Size(459, 45);
-            checkBox1_show_processedposition.TabIndex = 13;
-            checkBox1_show_processedposition.Text = "Show smoothed position (red)";
-            checkBox1_show_processedposition.UseVisualStyleBackColor = true;
+            checkBox1_show_smoothededposition.AutoSize = true;
+            checkBox1_show_smoothededposition.Location = new Point(1278, 715);
+            checkBox1_show_smoothededposition.Name = "checkBox1_show_processedposition";
+            checkBox1_show_smoothededposition.Size = new Size(459, 45);
+            checkBox1_show_smoothededposition.TabIndex = 13;
+            checkBox1_show_smoothededposition.Text = "Show smoothed position (red)";
+            checkBox1_show_smoothededposition.UseVisualStyleBackColor = true;
             // 
             // checkBox_show_reportedposition
             // 
@@ -269,7 +269,7 @@
             Controls.Add(label_alpha);
             Controls.Add(label_alphavalue);
             Controls.Add(checkBox_show_reportedposition);
-            Controls.Add(checkBox1_show_processedposition);
+            Controls.Add(checkBox1_show_smoothededposition);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(buttonClear);
@@ -299,7 +299,7 @@
         private Label label3;
         private RadioButton radioButton_ReportRateHigh;
         private RadioButton radioButton_ReportRateLow;
-        private CheckBox checkBox1_show_processedposition;
+        private CheckBox checkBox1_show_smoothededposition;
         private CheckBox checkBox_show_reportedposition;
         private RadioButton radioButton1;
         private Label label4;
