@@ -144,13 +144,9 @@ namespace PenPositionSim
 
         private void EraseCanvas()
         {
-            using (Graphics g = inkCanvas.CreateGraphics())
+            using (var b = new SolidBrush(System.Drawing.Color.White))
             {
-                using (var b = new SolidBrush(System.Drawing.Color.White))
-                {
-                    g.FillRectangle(b, 0, 0, inkCanvas.Width, inkCanvas.Height);
-
-                }
+                this.inkcanvas_gfx.FillRectangle(b, 0, 0, inkCanvas.Width, inkCanvas.Height);
 
             }
         }
