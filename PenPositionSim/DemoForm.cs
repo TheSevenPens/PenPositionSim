@@ -211,7 +211,8 @@ namespace PenPositionSim
 
                 using (var pb = new PictureBox() { Image = bitmap })
                 {
-                    this.inkCanvas.Cursor = new Cursor(((Bitmap)pb.Image).GetHicon());
+                    var cursor = new Cursor(((Bitmap)pb.Image).GetHicon());
+                    this.inkCanvas.Cursor = cursor;
                 }
             }
         }
