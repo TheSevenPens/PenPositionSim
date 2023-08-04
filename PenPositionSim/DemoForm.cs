@@ -176,9 +176,25 @@ namespace PenPositionSim
 
         private void SetupPenCursorForCanvas()
         {
-            int width = 256;
-            int height = 256;
-            using (Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb))
+            int cursor_width = 256;
+            int cursor_height = 256;
+
+            int centerx = cursor_width / 2 + 10;
+            int centery = cursor_height / 2 - 10;
+            int delta = 10;
+
+            var center = new Point(centerx, centery);
+            var p1 = new Point(cursor_width - 1 - delta, 0);
+            var p2 = new Point(cursor_width - 1, 0 + delta);
+
+            var trianglePoints = new Point[]
+            {
+                center,   // Top point
+                p1,   // Bottom-left point
+                p2,  // Bottom-right point
+            };
+
+            using (Bitmap bitmap = new Bitmap(cursor_width, cursor_height, PixelFormat.Format32bppArgb))
             {
                 using (Graphics graphics = Graphics.FromImage(bitmap))
                 {
@@ -187,22 +203,6 @@ namespace PenPositionSim
                     using (Pen pen = new Pen(Color.Blue, 4))
                     using (Brush brush = new SolidBrush(Color.Yellow))
                     {
-                        int centerx = width / 2 + 10;
-                        int centery = height / 2 - 10;
-                        int delta = 10;
-
-                        var center = new Point(centerx, centery);
-                        var p1 = new Point(width - 1 - delta, 0);
-                        var p2 = new Point(width - 1, 0 + delta);
-
-
-                        var trianglePoints = new Point[]
-                        {
-                            center,   // Top point
-                            p1,   // Bottom-left point
-                            p2,  // Bottom-right point
-                        };
-
                         graphics.FillPolygon(brush, trianglePoints);
                         graphics.DrawPolygon(pen, trianglePoints);
                     }
