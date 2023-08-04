@@ -72,7 +72,7 @@ namespace PenPositionSim
 
             var smoothed_pos_cur = this.smoother.Smooth(reported_pos_cur);
 
-            var reported_rect = new Rectangle(reported_pos_cur.Add(-3,-3).ToPointRounded(), point_rect_size);
+            var reported_rect = new Rectangle(reported_pos_cur.Add(-3, -3).ToPointRounded(), point_rect_size);
             var smoothed_rect = new Rectangle(smoothed_pos_cur.Add(-3, -3).ToPointRounded(), point_rect_size);
 
             if (isDrawing && !initialReport)

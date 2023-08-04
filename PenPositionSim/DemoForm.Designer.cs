@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             inkCanvas = new Panel();
-            checkBox_connect_points = new CheckBox();
             buttonClear = new Button();
             trackBar_alpha = new TrackBar();
             label_alpha = new Label();
@@ -61,18 +60,6 @@
             inkCanvas.TabIndex = 0;
             inkCanvas.MouseDown += inkCanvas_MouseDown;
             inkCanvas.MouseUp += inkCanvas_MouseUp;
-            // 
-            // checkBox_connect_points
-            // 
-            checkBox_connect_points.AutoSize = true;
-            checkBox_connect_points.Checked = true;
-            checkBox_connect_points.CheckState = CheckState.Checked;
-            checkBox_connect_points.Location = new Point(1278, 724);
-            checkBox_connect_points.Name = "checkBox_connect_points";
-            checkBox_connect_points.Size = new Size(258, 45);
-            checkBox_connect_points.TabIndex = 1;
-            checkBox_connect_points.Text = "Connect points";
-            checkBox_connect_points.UseVisualStyleBackColor = true;
             // 
             // buttonClear
             // 
@@ -272,7 +259,6 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(buttonClear);
-            Controls.Add(checkBox_connect_points);
             Controls.Add(inkCanvas);
             Name = "DemoForm";
             Text = "Pen Position Simulator";
@@ -290,7 +276,6 @@
         #endregion
 
         private Panel inkCanvas;
-        private CheckBox checkBox_connect_points;
         private Button buttonClear;
         private TrackBar trackBar_alpha;
         private Label label_alpha;
