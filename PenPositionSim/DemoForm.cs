@@ -169,6 +169,14 @@ namespace PenPositionSim
             this.SetupPenCursorForCanvas();
             this.report_rate_timer.Start();
         }
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.report_rate_timer.Stop();
+            if (this.inkcanvas_gfx != null)
+            {
+                this.inkcanvas_gfx.Dispose();
+            }
+        }
 
         private void SetupPenCursorForCanvas()
         {
@@ -213,13 +221,6 @@ namespace PenPositionSim
             }
         }
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (this.inkcanvas_gfx != null)
-            {
-                this.inkcanvas_gfx.Dispose();
-            }
-        }
 
         private void radioButton_ReportRateLow_CheckedChanged(object sender, EventArgs e)
         {
