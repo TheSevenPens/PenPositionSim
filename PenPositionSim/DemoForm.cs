@@ -64,7 +64,7 @@ namespace PenPositionSim
             {
                 reported_pos_prev = mpd.Add(-inkCanvas.Left, -inkCanvas.Top);
                 smoothed_pos_prev = mpd.Add(-inkCanvas.Left, -inkCanvas.Top);
-                this.smoother.SetOldSmoothed(mpd.Add( -inkCanvas.Left, -inkCanvas.Top));
+                this.smoother.SetOldSmoothed(mpd.Add(-inkCanvas.Left, -inkCanvas.Top));
                 initialReport = false;
             }
             reported_pos_cur = mpd.Add(-inkCanvas.Left, -inkCanvas.Top);

@@ -54,6 +54,7 @@
             // 
             // inkCanvas
             // 
+            inkCanvas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             inkCanvas.BackColor = Color.White;
             inkCanvas.Location = new Point(12, 12);
             inkCanvas.Name = "inkCanvas";
@@ -64,6 +65,7 @@
             // 
             // buttonClear
             // 
+            buttonClear.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             buttonClear.Location = new Point(1423, 922);
             buttonClear.Name = "buttonClear";
             buttonClear.Size = new Size(453, 58);
@@ -74,6 +76,7 @@
             // 
             // trackBar_alpha
             // 
+            trackBar_alpha.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             trackBar_alpha.AutoSize = false;
             trackBar_alpha.Location = new Point(1384, 416);
             trackBar_alpha.Maximum = 100;
@@ -86,6 +89,7 @@
             // 
             // label_alpha
             // 
+            label_alpha.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label_alpha.AutoSize = true;
             label_alpha.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label_alpha.Location = new Point(1267, 425);
@@ -96,6 +100,7 @@
             // 
             // label_alphavalue
             // 
+            label_alphavalue.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label_alphavalue.AutoSize = true;
             label_alphavalue.Location = new Point(1794, 425);
             label_alphavalue.Name = "label_alphavalue";
@@ -105,6 +110,7 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 11.1F, FontStyle.Bold, GraphicsUnit.Point);
             label1.Location = new Point(1261, 363);
@@ -115,6 +121,7 @@
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 11.1F, FontStyle.Bold, GraphicsUnit.Point);
             label2.Location = new Point(1263, 530);
@@ -125,6 +132,7 @@
             // 
             // label3
             // 
+            label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 11.1F, FontStyle.Bold, GraphicsUnit.Point);
             label3.Location = new Point(1584, 55);
@@ -170,6 +178,7 @@
             // 
             // checkBox1_show_smoothededposition
             // 
+            checkBox1_show_smoothededposition.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             checkBox1_show_smoothededposition.AutoSize = true;
             checkBox1_show_smoothededposition.Location = new Point(1278, 715);
             checkBox1_show_smoothededposition.Name = "checkBox1_show_smoothededposition";
@@ -180,6 +189,7 @@
             // 
             // checkBox_show_reportedposition
             // 
+            checkBox_show_reportedposition.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             checkBox_show_reportedposition.AutoSize = true;
             checkBox_show_reportedposition.Checked = true;
             checkBox_show_reportedposition.CheckState = CheckState.Checked;
@@ -192,6 +202,7 @@
             // 
             // label4
             // 
+            label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 11.1F, FontStyle.Bold, GraphicsUnit.Point);
             label4.Location = new Point(1261, 55);
@@ -226,6 +237,7 @@
             // 
             // panel1
             // 
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel1.Controls.Add(radioButton1);
             panel1.Controls.Add(radioButton_ReportRateHigh);
             panel1.Controls.Add(radioButton_ReportRateLow);
@@ -236,6 +248,7 @@
             // 
             // panel2
             // 
+            panel2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel2.Controls.Add(radioButton_highlatency);
             panel2.Controls.Add(radioButton_LowLatency);
             panel2.Location = new Point(1595, 108);
@@ -245,6 +258,7 @@
             // 
             // checkBox_markpositions
             // 
+            checkBox_markpositions.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             checkBox_markpositions.AutoSize = true;
             checkBox_markpositions.Checked = true;
             checkBox_markpositions.CheckState = CheckState.Checked;
