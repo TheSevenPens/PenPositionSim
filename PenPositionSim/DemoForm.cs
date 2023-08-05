@@ -64,7 +64,7 @@ namespace PenPositionSim
             {
                 reported_pos_prev = mpd.Add(-inkCanvas.Left, -inkCanvas.Top);
                 smoothed_pos_prev = mpd.Add(-inkCanvas.Left, -inkCanvas.Top);
-                this.smoother.SetOldSmoothed(mpd.Add( -inkCanvas.Left, -inkCanvas.Top));
+                this.smoother.SetOldSmoothed(mpd.Add(-inkCanvas.Left, -inkCanvas.Top));
                 initialReport = false;
             }
             reported_pos_cur = mpd.Add(-inkCanvas.Left, -inkCanvas.Top);
@@ -165,9 +165,7 @@ namespace PenPositionSim
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.inkcanvas_gfx = inkCanvas.CreateGraphics();
-            this.inkcanvas_gfx.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-
+            this.AquireCanvasGraphics();
             this.SetupPenCursorForCanvas();
             this.report_rate_timer.Start();
         }
@@ -257,6 +255,21 @@ namespace PenPositionSim
         {
             this.mds.Latency = Latency.High;
 
+        }
+
+        private void DemoForm_Resize(object sender, EventArgs e)
+        {
+            this.AquireCanvasGraphics();
+        }
+
+        private void AquireCanvasGraphics()
+        {
+            if (this.inkcanvas_gfx != null)
+            {
+                this.inkcanvas_gfx.Dispose();
+            }
+            this.inkcanvas_gfx = inkCanvas.CreateGraphics();
+            this.inkcanvas_gfx.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
         }
     }
 }
