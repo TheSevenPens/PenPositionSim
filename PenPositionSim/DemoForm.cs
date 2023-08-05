@@ -10,7 +10,7 @@ namespace PenPositionSim
         private bool isDrawing;
         bool initialReport = true;
 
-        Graphics inkcanvas_gfx;
+        Graphics? inkcanvas_gfx;
 
         EMASmoother smoother;
         private PointD reported_pos_prev;
@@ -83,6 +83,10 @@ namespace PenPositionSim
 
             if (isDrawing && !initialReport)
             {
+                if (this.inkcanvas_gfx == null) 
+                {
+                    throw new ArgumentOutOfRangeException("inkcanvas is null");
+                }
 
                 if (this.checkBox_show_reportedposition.Checked)
                 {
