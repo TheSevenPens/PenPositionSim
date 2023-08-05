@@ -165,9 +165,7 @@ namespace PenPositionSim
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.inkcanvas_gfx = inkCanvas.CreateGraphics();
-            this.inkcanvas_gfx.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-
+            this.AquireCanvasGraphics();
             this.SetupPenCursorForCanvas();
             this.report_rate_timer.Start();
         }
@@ -260,6 +258,11 @@ namespace PenPositionSim
         }
 
         private void DemoForm_Resize(object sender, EventArgs e)
+        {
+            this.AquireCanvasGraphics();
+        }
+
+        private void AquireCanvasGraphics()
         {
             if (this.inkcanvas_gfx != null)
             {
