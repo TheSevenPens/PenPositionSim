@@ -288,6 +288,7 @@
             Controls.Add(label2);
             Controls.Add(buttonClear);
             Controls.Add(inkCanvas);
+            MinimumSize = new Size(800, 800);
             Name = "DemoForm";
             Text = "Pen Position Simulator";
             FormClosed += Form1_FormClosed;
