@@ -258,5 +258,15 @@ namespace PenPositionSim
             this.mds.Latency = Latency.High;
 
         }
+
+        private void DemoForm_Resize(object sender, EventArgs e)
+        {
+            if (this.inkcanvas_gfx != null)
+            {
+                this.inkcanvas_gfx.Dispose();
+            }
+            this.inkcanvas_gfx = inkCanvas.CreateGraphics();
+            this.inkcanvas_gfx.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+        }
     }
 }

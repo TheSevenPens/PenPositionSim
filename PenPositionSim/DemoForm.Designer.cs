@@ -293,6 +293,7 @@
             Text = "Pen Position Simulator";
             FormClosed += Form1_FormClosed;
             Load += Form1_Load;
+            Resize += DemoForm_Resize;
             ((System.ComponentModel.ISupportInitialize)trackBar_alpha).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
