@@ -8,3 +8,8 @@ You can independently control:
 - Latency
 - Amount of smoothing
 
+## Building
+
+```
+dotnet publish PenPositionSim -c release --runtime win-x64 --framework net6.0-windows
+```
